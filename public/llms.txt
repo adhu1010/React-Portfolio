@@ -1,0 +1,23 @@
+# Adhwaith K P - Student Developer Portfolio
+
+## About
+Adhwaith K P is a Student Developer and Creative Coder based in Kerala, India. He specializes in Full-Stack Web Development, primarily using the React and Next.js ecosystem.
+
+## Skills
+- **Languages**: JavaScript, TypeScript, Python, Java, C/C++, SQL
+- **Frameworks**: Next.js, React, Express.js, Tailwind CSS
+- **Tools**: Git, GitHub, Vercel, Firebase, MongoDB
+
+## Projects
+- **Portfolio**: This website, showcasing his work and skills.
+- **Various Open Source Experiments**: Available on GitHub.
+
+## Contact
+- **Email**: adhwaithK P@gmail.com
+- **GitHub**: https://github.com/adhu1010
+- **LinkedIn**: https://linkedin.com/in/adhwaithprasannan
+- **Twitter**: https://twitter.com/_adhu46
+
+## Content Structure
+- `/`: Main landing page with Hero, About, Skills, Experience, Projects, and Contact sections.
+- `/resume`: Direct link to view/download resume.

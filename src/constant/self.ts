@@ -37,6 +37,6 @@ export const selfData = {
     instagram: "_adhu46_",
     leetcode: "adhu46",
     linkedin: "adhwaithprasannan",
-    twitter: "adhu46",
+    twitter: "_adhu46",
   },
 };

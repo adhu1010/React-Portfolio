@@ -1,0 +1,27 @@
+/* [project]/src/app/nasalization_4406bf5b.module.css [app-client] (css) */
+@font-face {
+  font-family: nasalization;
+  src: url("../media/nasalization-s.p.13a1557a.otf") format("opentype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: nasalization Fallback;
+  src: local(Arial);
+  ascent-override: 75.64%;
+  descent-override: 21.61%;
+  line-gap-override: 0.0%;
+  size-adjust: 122.15%;
+}
+
+.nasalization_4406bf5b-module__GaDz8W__className {
+  font-family: nasalization, nasalization Fallback;
+}
+
+.nasalization_4406bf5b-module__GaDz8W__variable {
+  --font-nasalization: "nasalization", "nasalization Fallback";
+}
+
+/*# sourceMappingURL=src_app_nasalization_4406bf5b_module_css_e59ae46c._.single.css.map*/

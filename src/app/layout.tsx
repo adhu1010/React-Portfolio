@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   applicationName: "Adhwaith K P",
   title: "Adhwaith K P",
   description:
-    "Aarab Nishchal is a student developer passionate about building modern web apps with Next.js, React, and open-source tools. Explore his projects, experiments, and developer portfolio.",
+    "Adhwaith K P is a student developer passionate about building modern web apps with Next.js, React, and open-source tools. Explore his projects, experiments, and developer portfolio.",
   authors: [
     {
       name: "Adhwaith K P",
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Adhwaith K P | Student Developer & Creative Coder",
     description:
-      "Explore Adhwaith K P’s portfolio featuring projects in AI, and developer tools. Discover a world of creative web applications and open-source experiments.",
+      "Explore Adhwaith K P’s portfolio featuring projects in React, Next.js, AI, and developer tools. Discover a world of creative web applications and open-source experiments.",
     url: "https://adhwaith.vercel.app",
     siteName: "Adhwaith K P",
     images: [
@@ -106,7 +106,7 @@ export const metadata: Metadata = {
         url: "/images/thumbnail.png",
         width: 1200,
         height: 630,
-        alt: "Adhwaith K P Portfolio Thumbnail",
+        alt: "Adhwaith's Portfolio Thumbnail",
       },
     ],
     locale: "en_US",
@@ -119,11 +119,11 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Adhwaith K P | Student Developer",
+    title: "Adhwaith K P| Student Developer",
     description:
-      "Check out Adhwaith's personal portfolio and dev projects using Next.js, React, Tailwind, and modern web tech.",
+      "Check out Adhwaith’s personal portfolio and dev projects using Next.js, React, Tailwind, and modern web tech.",
     images: ["/images/thumbnail.png"],
-    creator: "@adhu46",
+    creator: "@_adhu46",
   },
 };
 

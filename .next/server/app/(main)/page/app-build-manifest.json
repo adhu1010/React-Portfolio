@@ -1,0 +1,43 @@
+{
+  "pages": {
+    "/(main)/page": [
+      "static/chunks/[root-of-the-server]__e0477628._.css",
+      "static/chunks/node_modules_f2fb856e._.js",
+      "static/chunks/src_app_layout_tsx_68b267f5._.js",
+      "static/chunks/[root-of-the-server]__48d92107._.js",
+      "static/chunks/node_modules_next_6bab6250._.js",
+      "static/chunks/node_modules_motion-dom_dist_es_ed5d7820._.js",
+      "static/chunks/node_modules_framer-motion_dist_es_906fdbc6._.js",
+      "static/chunks/node_modules_react-icons_fa6_index_mjs_00e856c4._.js",
+      "static/chunks/node_modules_react-icons_ri_index_mjs_0e2ec0a5._.js",
+      "static/chunks/node_modules_react-icons_si_index_mjs_4ff16b17._.js",
+      "static/chunks/node_modules_react-icons_gi_index_mjs_5eee4597._.js",
+      "static/chunks/node_modules_react-icons_md_index_mjs_78df2b41._.js",
+      "static/chunks/node_modules_react-icons_tb_index_mjs_f6a9920d._.js",
+      "static/chunks/node_modules_react-icons_gr_index_mjs_42e3d99f._.js",
+      "static/chunks/node_modules_react-icons_lu_index_mjs_26d8a9f0._.js",
+      "static/chunks/node_modules_react-icons_lib_74ccc930._.js",
+      "static/chunks/node_modules_tailwind-merge_dist_bundle-mjs_mjs_b854acb4._.js",
+      "static/chunks/node_modules_c399772a._.js",
+      "static/chunks/src_app_not-found_tsx_dc7c1618._.js",
+      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_dc7c1618.js",
+      "static/chunks/[root-of-the-server]__6153d1e2._.js",
+      "static/chunks/node_modules_next_46d16782._.js",
+      "static/chunks/node_modules_react-icons_io5_index_mjs_39106f7b._.js",
+      "static/chunks/node_modules_react-icons_fi_index_mjs_9cbf4bb1._.js",
+      "static/chunks/node_modules_react-icons_bs_index_mjs_0b2b1793._.js",
+      "static/chunks/node_modules_framer-motion_dist_es_49241946._.js",
+      "static/chunks/node_modules_d3fdc685._.js",
+      "static/chunks/src_app_(main)_page_tsx_dc7c1618._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_6aaa83c7._.js",
+      "static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js",
+      "static/chunks/node_modules_next_dist_compiled_next-devtools_index_d575f738.js",
+      "static/chunks/node_modules_next_dist_compiled_0f1b9fd4._.js",
+      "static/chunks/node_modules_next_dist_client_20b209c9._.js",
+      "static/chunks/node_modules_next_dist_445d8acf._.js",
+      "static/chunks/node_modules_@swc_helpers_cjs_8e433861._.js",
+      "static/chunks/_e69f0d32._.js",
+      "static/chunks/_01f48b92._.js"
+    ]
+  }
+}

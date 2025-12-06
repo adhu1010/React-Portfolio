@@ -1,228 +1,433 @@
-"use client";
-
+import { motion } from "motion/react";
+import { toast } from "sonner";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Navbar, Footer, Background } from "@/components/common";
-import { nasalization } from "@/app/fonts";
-import { PDFErrorBoundary } from "@/components/PDFErrorBoundary";
-import {
-  HiDownload,
-  HiOutlineArrowsExpand,
-  HiExternalLink,
-} from "react-icons/hi";
 
-interface HTMLIFrameElementWithFullscreen extends HTMLIFrameElement {
-  webkitRequestFullscreen?: () => Promise<void>;
-  msRequestFullscreen?: () => Promise<void>;
-}
+import { BsSend, BsSendCheck } from "react-icons/bs";
+import { Card } from "../ui/card";
 
-interface DocumentWithFullscreen extends Document {
-  webkitExitFullscreen?: () => Promise<void>;
-  msExitFullscreen?: () => Promise<void>;
-}
+export const ContactFormCard = () => {
+  const [isSending, setIsSending] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [formValues, setFormValues] = useState({
+    senderName: "",
+    senderEmail: "",
+    reasonToContact: "General inquries",
+    senderMsg: "",
+  });
 
+  const sendEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSending(true);
 
+    const sendEmailPromise = new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch("/api/send", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            senderName: formValues.senderName,
+            senderEmail: formValues.senderEmail,
+            reasonToContact: formValues.reasonToContact,
+            senderMsg: formValues.senderMsg,
+          }),
+        });
 
-export default function Resume() {
+        const data = await response.json();
 
-  const [isFullscreen, setIsFullscreen] = useState(false);
+        if (response.ok) {
+          console.log("✅ Email sent successfully:", data.message);
+          setIsSent(true);
+          setFormValues({
+            senderName: "",
+            senderEmail: "",
+            reasonToContact: "General inquries",
+            senderMsg: "",
+          });
+          resolve(data.message);
+        } else {
+          console.error("❌ Failed to send email:", data.error);
+          reject(new Error(data.error || "Failed to send message"));
+        }
+      } catch (error) {
+        console.error("❌ Network error or unexpected error:", error);
+        reject(error);
+      } finally {
+        setIsSending(false);
+      }
+    });
 
-  const PDF_URL = "/docs/Adhwaith_K_P_Resume.pdf";
-
-
+    toast.promise(sendEmailPromise, {
+      loading: "Sending your message...",
+      success: "Message has been received! I'll get back to you soon.",
+      error: (error) => {
+        if (error.message.includes("not valid")) {
+          return "❌ The email address you entered is not valid (".concat(
+            formValues.senderEmail,
+            "). Please use a real email."
+          );
+        }
+        return (
+          error.message ||
+          "An error occurred while sending your message. Please try again later."
+        );
+      },
+    });
+  };
 
   useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
-
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener(
-        "mozfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener(
-        "MSFullscreenChange",
-        handleFullscreenChange
-      );
-    };
-  }, []);
-
-
-
-  const toggleFullscreen = () => {
-    if (!isFullscreen) {
-      const iframe = document.querySelector(
-        "iframe"
-      ) as HTMLIFrameElementWithFullscreen;
-      if (iframe?.requestFullscreen) {
-        iframe.requestFullscreen();
-        setIsFullscreen(true);
-      } else if (iframe?.webkitRequestFullscreen) {
-        iframe.webkitRequestFullscreen();
-        setIsFullscreen(true);
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if ((document as DocumentWithFullscreen).webkitExitFullscreen) {
-        (document as DocumentWithFullscreen).webkitExitFullscreen?.();
-      } else if ((document as DocumentWithFullscreen).msExitFullscreen) {
-        (document as DocumentWithFullscreen).msExitFullscreen?.();
-      }
-      setIsFullscreen(false);
+    if (isSent) {
+      setTimeout(() => {
+        setIsSent(false);
+      }, 3000);
     }
+  }, [isSent]);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
-    <div className={`min-h-screen selection:bg-primary/20 ${nasalization.className}`}>
-      <Background />
-      <Navbar />
-
-      <div className="container mx-auto px-4 pt-32 pb-20">
+    <motion.div
+      initial={{ opacity: 0, y: 60, scale: 0.9, rotateX: 15 }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotateX: 0,
+      }}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      }}
+      whileHover={{
+        y: -15,
+        scale: 1.03,
+        rotateX: -2,
+        rotateY: 2,
+        transition: {
+          duration: 0.4,
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+        },
+      }}
+      className="group h-full perspective-1000"
+      style={{
+        transformStyle: "preserve-3d",
+        perspective: "1000px",
+      }}
+    >
+      <Card
+        className="relative overflow-hidden backdrop-blur-xl border transition-all duration-700 h-full flex flex-col shadow-xl hover:shadow-2xl group-hover:shadow-luxury-hover-glow/40"
+        style={{
+          background: "hsl(var(--glass-bg))",
+          borderColor: "hsl(var(--glass-border))",
+          transformStyle: "preserve-3d",
+        }}
+      >
+        {/* Enhanced Glass shimmer effect */}
         <motion.div
-          className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-secondary mb-2">
-              Resume
-            </h1>
-            <p className="text-muted-foreground">
-              View or download my resume
-            </p>
-          </div>
+          className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-1000"
+          style={{
+            background:
+              "linear-gradient(135deg, transparent 30%, hsl(var(--primary) / 0.2) 50%, transparent 70%)",
+          }}
+          initial={{ x: "-200%", rotate: -45 }}
+          whileHover={{ x: "200%", rotate: 45 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+        />
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <motion.button
-              onClick={toggleFullscreen}
-              className="group relative flex items-center gap-2 px-5 py-3 rounded-xl overflow-hidden transition-all duration-300 border border-secondary/30 bg-card/30 hover:bg-secondary/10"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 8px 25px hsl(var(--secondary) / 0.2)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 1.1 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-                <HiOutlineArrowsExpand className="w-4 h-4 text-secondary relative z-10 pointer-events-none" />
-                <span className="text-foreground font-medium relative z-10 pointer-events-none">
-                  {isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-                </span>
-              </motion.button>
+        {/* Enhanced Glowing border effect */}
+        <motion.div
+          className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          style={{
+            background:
+              "linear-gradient(45deg, hsl(var(--primary) / 0.3), hsl(var(--secondary) / 0.2), hsl(var(--primary) / 0.3))",
+            filter: "blur(2px)",
+          }}
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-              <motion.a
-                href={PDF_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative flex items-center gap-2 px-5 py-3 rounded-xl overflow-hidden transition-all duration-300 border border-secondary/30 bg-card/30 hover:bg-secondary/10"
-                whileHover={{
-                  scale: 1.05,
-                  borderColor: "hsl(var(--secondary) / 0.5)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-              >
-                <HiExternalLink className="w-4 h-4 text-secondary pointer-events-none" />
-                <span className="text-foreground font-medium pointer-events-none">
-                  Open in New Tab
-                </span>
-              </motion.a>
+        {/* Floating particles effect */}
+        <motion.div
+          className="absolute top-4 right-4 w-2 h-2 rounded-full bg-primary/30 blur-sm"
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.3, 0.8, 0.3],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-6 left-6 w-1 h-1 rounded-full bg-secondary/40 blur-sm"
+          animate={{
+            y: [0, 8, 0],
+            x: [0, 5, 0],
+            opacity: [0.4, 0.9, 0.4],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5,
+          }}
+        />
 
-              <motion.a
-                href={PDF_URL}
-                download="Aarab_Nishchal_Resume.pdf"
-                className="group relative flex items-center gap-2 px-6 py-3 rounded-xl overflow-hidden transition-all duration-300 font-medium text-primary-foreground"
-                style={{
-                  background:
-                    "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%)",
-                  boxShadow: "0 8px 25px hsl(var(--primary) / 0.3)",
-                }}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 12px 35px hsl(var(--primary) / 0.4)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.3 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-                <HiDownload className="w-4 h-4 relative z-10 pointer-events-none" />
-                <span className="relative z-10 pointer-events-none">Download PDF</span>
-              </motion.a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="relative overflow-hidden rounded-3xl shadow-2xl z-10"
-            initial={{ opacity: 0, y: 60, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 1,
-              delay: 1.4,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            whileHover={{
-              scale: 1.02,
-              transition: { duration: 0.3 },
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-card/30 via-card/20 to-card/30 backdrop-blur-xl pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 rounded-3xl pointer-events-none" />
-            <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 rounded-3xl bg-clip-border pointer-events-none" />
-
-            <PDFErrorBoundary pdfUrl={PDF_URL}>
+        <div className="relative z-10 p-4 md:p-6 flex flex-col flex-grow">
+          <form onSubmit={sendEmail} className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <motion.div
-                className="pdf-container relative w-full overflow-hidden bg-white/95 backdrop-blur-sm rounded-3xl"
-                style={{ height: "800px" }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 1.6 }}
+                initial={{ opacity: 0, x: -40, rotateY: -15 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.3,
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 15,
+                }}
+                whileHover={{ scale: 1.02, rotateY: 2 }}
+                whileFocus={{ scale: 1.02, rotateY: 2 }}
               >
-                <div className="pdf-viewer">
-                  <div
-                    className="flex justify-center items-start min-h-full p-4"
-                  >
-                    <iframe
-                      src={`${PDF_URL}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
-                      width="100%"
-                      height="780px"
-                      className="border-0 shadow-lg rounded-lg"
-                      title="Resume PDF"
-                      style={{
-                        maxWidth: "100%",
-                        minHeight: "600px",
-                        background: "#ffffff",
-                      }}
-                      allow="fullscreen"
-                    />
-                  </div>
-                  </div>
-
+                <input
+                  required
+                  type="text"
+                  placeholder="Your Name"
+                  name="senderName"
+                  onChange={handleChange}
+                  value={formValues.senderName}
+                  className="w-full px-4 py-3 text-sm rounded-xl backdrop-blur-xl border transition-all duration-300 outline-none focus:ring-2 focus:ring-primary/50 hover:border-primary/30"
+                  style={{
+                    color: "hsl(var(--foreground))",
+                    background: "hsl(var(--glass-bg))",
+                    borderColor: "hsl(var(--glass-border))",
+                  }}
+                />
               </motion.div>
-            </PDFErrorBoundary>
-          </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 40, rotateY: 15 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.4,
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 15,
+                }}
+                whileHover={{ scale: 1.02, rotateY: -2 }}
+                whileFocus={{ scale: 1.02, rotateY: -2 }}
+              >
+                <input
+                  required
+                  type="email"
+                  placeholder="Your Email"
+                  name="senderEmail"
+                  onChange={handleChange}
+                  value={formValues.senderEmail}
+                  className="w-full px-4 py-3 text-sm rounded-xl backdrop-blur-xl border transition-all duration-300 outline-none focus:ring-2 focus:ring-primary/50 hover:border-primary/30"
+                  style={{
+                    color: "hsl(var(--foreground))",
+                    background: "hsl(var(--glass-bg))",
+                    borderColor: "hsl(var(--glass-border))",
+                  }}
+                />
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.5,
+                type: "spring",
+                stiffness: 150,
+                damping: 12,
+              }}
+              whileHover={{ scale: 1.02, y: -2 }}
+            >
+              <select
+                required
+                name="reasonToContact"
+                onChange={handleChange}
+                value={formValues.reasonToContact}
+                className="w-full px-4 py-3 text-sm rounded-xl backdrop-blur-xl border transition-all duration-300 outline-none focus:ring-2 focus:ring-primary/50 hover:border-primary/30"
+                style={{
+                  color: "hsl(var(--foreground))",
+                  background: "hsl(var(--glass-bg))",
+                  borderColor: "hsl(var(--glass-border))",
+                }}
+              >
+                <option className="text-black" value="General inquries">
+                  General Inquiries
+                </option>
+                <option className="text-black" value="Project inquiries">
+                  Project Inquiries
+                </option>
+                <option className="text-black" value="Collaboration request">
+                  Collaboration Request
+                </option>
+                <option className="text-black" value="Feedback/Question">
+                  Feedback/Question
+                </option>
+                <option className="text-black" value="Bug report">
+                  Bug Report
+                </option>
+                <option className="text-black" value="Feature request">
+                  Feature Request
+                </option>
+              </select>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.6,
+                type: "spring",
+                stiffness: 150,
+                damping: 12,
+              }}
+              whileHover={{ scale: 1.02, y: -2 }}
+            >
+              <textarea
+                placeholder="Your Message"
+                rows={4}
+                name="senderMsg"
+                onChange={handleChange}
+                value={formValues.senderMsg}
+                required
+                className="w-full px-4 py-3 text-sm rounded-xl backdrop-blur-xl border transition-all duration-300 outline-none focus:ring-2 focus:ring-primary/50 hover:border-primary/30 resize-none"
+                style={{
+                  color: "hsl(var(--foreground))",
+                  background: "hsl(var(--glass-bg))",
+                  borderColor: "hsl(var(--glass-border))",
+                }}
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.7,
+                type: "spring",
+                stiffness: 130,
+                damping: 15,
+              }}
+            >
+              <motion.button
+                type="submit"
+                disabled={isSending}
+                whileHover={{
+                  scale: 1.05,
+                  y: -3,
+                  transition: {
+                    duration: 0.2,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10,
+                  },
+                }}
+                whileTap={{
+                  scale: 0.95,
+                  y: 1,
+                  transition: { duration: 0.1 },
+                }}
+                animate={{
+                  boxShadow: isSending
+                    ? "0 0 30px hsl(var(--primary) / 0.4)"
+                    : "0 0 20px hsl(var(--primary) / 0.2)",
+                }}
+                className="w-full btn-primary px-6 py-3 rounded-xl font-medium text-base flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+              >
+                {isSending ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 0.8,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    />
+                    <motion.span
+                      animate={{ opacity: [1, 0.5, 1] }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      Sending...
+                    </motion.span>
+                  </>
+                ) : isSent ? (
+                  <>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 10,
+                      }}
+                    >
+                      <BsSendCheck className="w-5 h-5" />
+                    </motion.div>
+                    <motion.span
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      Sent!
+                    </motion.span>
+                  </>
+                ) : (
+                  <>
+                    <motion.div
+                      whileHover={{
+                        rotate: [0, -10, 10, 0],
+                        transition: { duration: 0.4 },
+                      }}
+                    >
+                      <BsSend className="w-5 h-5" />
+                    </motion.div>
+                    Send Message
+                  </>
+                )}
+              </motion.button>
+            </motion.div>
+          </form>
         </div>
-
-        <Footer />
-
-    </div>
+      </Card>
+    </motion.div>
   );
-}
+};

@@ -1,0 +1,27 @@
+/* [project]/src/app/quentine_4fe6fbcb.module.css [app-client] (css) */
+@font-face {
+  font-family: quentine;
+  src: url("../media/quentin-s.p.5a4a0c16.otf") format("opentype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: quentine Fallback;
+  src: local(Arial);
+  ascent-override: 97.06%;
+  descent-override: 48.18%;
+  line-gap-override: 1.91%;
+  size-adjust: 99.63%;
+}
+
+.quentine_4fe6fbcb-module__GtUFzq__className {
+  font-family: quentine, quentine Fallback;
+}
+
+.quentine_4fe6fbcb-module__GtUFzq__variable {
+  --font-quentine: "quentine", "quentine Fallback";
+}
+
+/*# sourceMappingURL=src_app_quentine_4fe6fbcb_module_css_e59ae46c._.single.css.map*/

@@ -5,12 +5,12 @@ import { generateResumeStructuredData } from "@/lib/structured-data";
 export const metadata: Metadata = {
   title: "Resume - Adhwaith K P",
   description:
-    "View and download Adhwaith's professional resume. Student developer with expertise in React, Next.js, AI, and full-stack development.",
+    "View and download Adhwaith K P's professional resume. Student developer with expertise in React, Next.js, and full-stack development.",
   keywords: resumeKeywords,
   openGraph: {
     title: "Resume - Adhwaith K P",
     description:
-      "View and download Adhwaith's professional resume featuring his experience and skills as a student developer.",
+      "View and download Aarab Nishchal's professional resume featuring his experience and skills as a student developer.",
     url: "https://adhwaith.vercel.app/resume",
     siteName: "Adhwaith K P",
     images: [
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Resume - Adhwaith k p",
+    title: "Resume - Adhwaith K P",
     description:
-      "View Adhwaith K P's professional resume and experience as a student developer.",
+      "View Adhwaith's professional resume and experience as a student developer.",
     images: ["/images/thumbnail.png"],
   },
 };

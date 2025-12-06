@@ -1,0 +1,18 @@
+const CHUNK_PUBLIC_PATH = "server/app/api/send/route.js";
+const runtime = require("../../../chunks/[turbopack]_runtime.js");
+runtime.loadChunk("server/chunks/node_modules_next_dist_compiled_react-dom_server_node_293c0716.js");
+runtime.loadChunk("server/chunks/node_modules_next_4603883c._.js");
+runtime.loadChunk("server/chunks/node_modules_nodemailer_a9f338b9._.js");
+runtime.loadChunk("server/chunks/node_modules_entities_lib_esm_8351ace8._.js");
+runtime.loadChunk("server/chunks/node_modules_react-icons_fa6_index_mjs_9ed68948._.js");
+runtime.loadChunk("server/chunks/node_modules_react-icons_si_index_mjs_f5f3429b._.js");
+runtime.loadChunk("server/chunks/node_modules_react-icons_gi_index_mjs_a28dee36._.js");
+runtime.loadChunk("server/chunks/node_modules_react-icons_md_index_mjs_d9f12970._.js");
+runtime.loadChunk("server/chunks/node_modules_react-icons_tb_index_mjs_35a8a63b._.js");
+runtime.loadChunk("server/chunks/node_modules_react-icons_gr_index_mjs_5b585e16._.js");
+runtime.loadChunk("server/chunks/node_modules_react-icons_lib_8c45b529._.js");
+runtime.loadChunk("server/chunks/node_modules_5888f0f1._.js");
+runtime.loadChunk("server/chunks/[root-of-the-server]__5c47cb26._.js");
+runtime.getOrInstantiateRuntimeModule("[project]/.next-internal/server/app/api/send/route/actions.js [app-rsc] (server actions loader, ecmascript)", CHUNK_PUBLIC_PATH);
+runtime.getOrInstantiateRuntimeModule("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/send/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)", CHUNK_PUBLIC_PATH);
+module.exports = runtime.getOrInstantiateRuntimeModule("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/send/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)", CHUNK_PUBLIC_PATH).exports;
