@@ -1,4 +1,4 @@
-import { Navbar } from "./Navbar";
+import { Navbar } from "./navbar";
 import { Footer } from "./Footer";
 import { PreLoader } from "./PreLoader";
 import { Clip } from "./Clips";
