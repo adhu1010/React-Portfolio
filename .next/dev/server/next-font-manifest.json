@@ -1,0 +1,13 @@
+{
+  "app": {
+    "[project]/src/app/(main)/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/b3af4880bb42b569-s.p.f8fed0f5.woff2",
+      "static/media/nasalization-s.p.1176cae4.otf",
+      "static/media/quentin-s.p.afd81d4d.otf"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}
