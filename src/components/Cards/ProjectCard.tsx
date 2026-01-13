@@ -189,10 +189,10 @@ export const ProjectCard: FC<ProjectCardProps> = ({
                   className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 hover:shadow-lg font-mono text-xs"
                   asChild
                 >
-                  <Link href={demo} target="_blank" rel="noopener noreferrer">
+                  <a href={demo} target="_blank" rel="noopener noreferrer">
                     <FiExternalLink className="w-4 h-4 mr-2" />
                     Demo
-                  </Link>
+                  </a>
                 </Button>
               </motion.div>
             )}
